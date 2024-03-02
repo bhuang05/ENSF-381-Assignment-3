@@ -1,0 +1,183 @@
+<!--products.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Products</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Product page for ENSF 381 Assignment 1" />
+    <meta name="keywords" content="HTML, Web Development, ENSF 381, Commerce" />
+    <meta name="authors" content="Braden Huang, Burton Jong" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-container">
+        <img
+          src="images/logo.png"
+          alt="Company Logo"
+          style="float: left"
+          width="60px"
+          length="60px"
+        />
+        <h1>Zestify</h1>
+      </div>
+    </header>
+    <div class="navbar">
+      <a href="index.html"> Home</a>
+      <br />
+      <a href="products.html"> Products</a>
+      <br />
+      <a href="login.html"> Login</a>
+      <br />
+      <a href="contact.html"> Contact us</a>
+      <br />
+    </div>
+
+    <main>
+      <section class="product-list">
+        <div class="products">
+          <div class="product">
+            <img
+              src="images/toilet.png"
+              alt="toilet"
+              width="300px"
+              height="250px"
+            />
+            <h2 class="product-text">Pure Gold Toilet</h2>
+
+            <p class="price">$3575</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img
+              src="images/pencil.png"
+              alt="pencil"
+              width="300px"
+              height="250px"
+            />
+            <h2 class="product-text">Premium Pencil</h2>
+            <p class="price">$3575</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img
+              src="images/chicken.png"
+              alt="chicken"
+              width="300px"
+              height="250px"
+            />
+            <h2 class="product-text">Live Chicken</h2>
+            <p class="price">$50</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="images/lava.png" alt="lava" width="300px" height="250px" />
+            <h2 class="product-text">Bucket of Lava</h2>
+            <p class="price">$20</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="images/fish.png" alt="fish" width="300px" height="250px" />
+            <h2 class="product-text">Super Rare Fish</h2>
+            <p class="price">$50000</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img
+              src="images/dinosaur.png"
+              alt="dinosaur"
+              width="300px"
+              height="250px"
+            />
+            <h2 class="product-text">Big Scary Dinosaur</h2>
+            <p class="price">$1</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="images/rock.png" alt="rock" width="300px" height="250px" />
+            <h2 class="product-text">Rock</h2>
+            <p class="price">$150</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img
+              src="images/paper.png"
+              alt="paper"
+              width="300px"
+              height="250px"
+            />
+            <h2 class="product-text">Crumpled Ball of Paper</h2>
+            <p class="price">$300</p>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class = 'cart'>
+          <h2>Shopping Cart</h2>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Copyright Braden Huang and Burton Jong</p>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function afterRender(){
+        var cartbuttons = document.querySelectorAll('.cart-btn');
+        var cartlist = document.querySelector('.cart');
+        var cartitems = {}
+
+        cartbuttons.forEach(button =>{
+          button.addEventListener('click',function(){
+            var product = this.parentElement;
+            var productname = product.querySelector('.product-text').textContent;
+            var productprice = product.querySelector('.price').textContent;
+
+            if (cartitems[productname]) {
+          
+          cartitems[productname].quantity++;
+          cartitems[productname].element.textContent = `${productname} - ${productprice} - ${cartitems[productname].quantity}`;
+
+          
+          cartitems[productname].element.appendChild(cartitems[productname].removebutton);
+        } else {
+        
+          var quantity = 1;
+          var cartitem = document.createElement('div');
+          var removebutton = document.createElement('button');
+          removebutton.className = 'remove-btn';
+          removebutton.textContent = 'Remove';
+          removebutton.addEventListener('click', function() {
+            
+            if (cartitems[productname].quantity == 1){
+            cartlist.removeChild(cartitem);
+            delete cartitems[productname];
+            }else{
+              cartitems[productname].quantity--;
+              cartitems[productname].element.textContent = `${productname} - ${productprice} - ${cartitems[productname].quantity}`;
+
+      
+            cartitems[productname].element.appendChild(cartitems[productname].removebutton);
+            }
+      
+          });
+          cartitem.textContent = `${productname} - ${productprice} - ${quantity}`;
+          cartitem.appendChild(removebutton);
+          cartlist.appendChild(cartitem);
+
+        
+          cartitems[productname] = { quantity: quantity, element: cartitem, removebutton: removebutton };
+        }
+
+        alert('Product Added to Cart');
+      });
+    });
+  });
+
+    </script>
+
+  </body>
+</html>
