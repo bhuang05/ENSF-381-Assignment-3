@@ -105,8 +105,6 @@ footer {
   background-color: #ffffff;
 }
 
-
-
 .contact-information {
   display: flex;
   flex-direction: column;
@@ -161,6 +159,20 @@ form input {
   opacity: 1;
 }
 
+.signup-btn {
+  background-color: #4caf50;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  opacity: 0.5;
+  color: white;
+}
+
+.signup-btn:hover {
+  background-color: #45a049;
+  opacity: 1;
+}
+
 .signup-link {
   color: #007bff;
   text-decoration: none;
@@ -183,7 +195,7 @@ form input {
   background-color: #45a049;
 }
 
-.remove-btn{
+.remove-btn {
   background-color: gray;
   border-radius: 5px;
   color: white;
@@ -191,15 +203,15 @@ form input {
   margin: 8px;
 }
 
-.remove-btn:hover{
+.remove-btn:hover {
   background-color: #ff0000;
 }
 
-.cart{
+.cart {
   text-align: center;
 }
 
-.message-box{
+.message-box {
   border: 2px solid;
   background-color: #f9f9f9;
   padding: 10px;

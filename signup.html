@@ -1,0 +1,169 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Login for ENSF 381 Assignment 1">
+    <meta name="keywords" content="HTML, Web Development, ENSF 381, Commerce">
+    <meta name="authors" content="Braden Huang, Burton Jong">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class = "header-container">
+        <img src="images/logo.png" alt="Company Logo" style="float:left" width="60 px" length="60 px"/>
+        <h1>Zestify</h1>
+    </div>
+    </header>
+    <div  class='navbar'>
+        <a href="index.html"> Home</a>
+        <br>
+        <a href="products.html"> Products</a>
+        <br>
+        <a href="login.html"> Login</a>
+        <br>
+        <a href="contact.html"> Contact us</a>
+        <br>
+    </div>
+    <main>
+        <section class = 'login-form'>
+                <form action="#" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+    
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+                    <label for="confirm_password">Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm your password">
+
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required placeholder="Enter your email">
+    
+                    <button type="submit" class="signup-btn">Signup</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Copyright Braden Huang and Burton Jong </p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function afterRender(){
+        var button = document.querySelector('.signup-btn');
+        button.addEventListener('click', function() {
+            event.preventDefault();
+            var usernameValue = document.getElementById('username').value;
+            var passwordValue = document.getElementById('password').value;
+            var confirmPasswordValue = document.getElementById('confirm_password').value;
+            var emailValue = document.getElementById('email').value;
+
+            var main = document.querySelector('main');
+            var messageBox = main.querySelector('.message-box');
+            
+            if(!messageBox){
+                messageBox = document.createElement('div');
+                messageBox.className = 'message-box'
+                var messageBoxText = document.createElement('p')
+                messageBox.appendChild(messageBoxText)
+                main.appendChild(messageBox)
+            }
+
+            messageBox.innerHTML = '';
+
+            validUsername = validateUsername(usernameValue);
+            console.log(validUsername);
+            validPassword = validatePassword(passwordValue);
+            console.log(validPassword);
+            validMatchingPassword = validateMatchingPassword(passwordValue, confirmPasswordValue);
+            console.log(validMatchingPassword);
+            validEmail = validateEmail(emailValue);
+            console.log(validEmail);
+
+            function addTextToMessageBox(text) {
+                var messageBoxText = document.createElement('p')
+                messageBoxText.textContent = text;
+                messageBox.appendChild(messageBoxText)
+            }
+
+            validUsername ? addTextToMessageBox('') : addTextToMessageBox('Username is invalid. ');
+            validPassword ? addTextToMessageBox('') : addTextToMessageBox('Password is invalid. ');
+            validMatchingPassword ? addTextToMessageBox('') : addTextToMessageBox('Passwords do not match. ');
+            validEmail ? addTextToMessageBox('') : addTextToMessageBox('Email is invalid. ');
+
+            if (validUsername && validPassword && validMatchingPassword && validEmail) {
+                addTextToMessageBox('Signup successful!');
+            }
+        
+        }); 
+    });
+
+        function validateUsername(username) {
+            if (username.length < 3 || username.length > 20) {
+                return false;
+            }
+ 
+            if (!/^[a-zA-Z]/.test(username)) {
+                return false;
+            }
+
+            if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+                return false;
+            }
+
+            return true;
+       }
+
+       function validatePassword(password) {
+            if (password.length < 8) {
+            return false;
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                return false;
+            }
+
+            if (!/[a-z]/.test(password)) {
+                return false;
+            }
+
+            if (!/[0-9]/.test(password)) {
+                return false;
+            }
+
+            if (!/[@!#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]/.test(password)) {
+                return false;
+            }
+
+            if (/\s/.test(password)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateMatchingPassword(password, confirm_password) {
+            return password === confirm_password;
+        }
+       
+        function validateEmail(email) {
+            if (/\s/.test(email)) {
+                return false;
+            }
+
+            if (!/@\w+\.(com|net|io)/.test(email)) {
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
