@@ -32,7 +32,7 @@
     <main>
         
         <section class = 'login-form'>
-                <form action="#" method="post">
+                <form action="javascript:void(0);" method="post">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required placeholder="Enter your username">
     
@@ -47,13 +47,11 @@
     </main>
     
     <footer>
-        <p>Copyright Braden Huang and Burton Jong </p>
+        <p>&copy Braden Huang and Burton Jong </p>
     </footer>
 
     <script>
-        var usernames = [];
-        var passwords = [];
-
+        var userdata = {};
         
         document.addEventListener('DOMContentLoaded', function afterRender(){
             var button = document.querySelector('.login-btn');
@@ -72,11 +70,10 @@
                     main.appendChild(messageBox)
                 }
 
-                if (usernames.includes(usernameValue) && passwords.includes(passwordValue)){
-                    messageBoxText.textContent = 'Login Successful!'
-                }
-                else{
-                    messageBoxText.textContent = 'Invalid Username or Password. Please try again.'
+                if (userdata[usernameValue] === passwordValue) {
+                    messageBox.querySelector('p').textContent = 'Login Successful!';
+                } else {
+                    messageBox.querySelector('p').textContent = 'Invalid Username or Password. Please try again.';
                 }
 
             }); 
@@ -89,13 +86,8 @@
                 const users = await response.json();
 
                 users.forEach(function(user){
-                    if (user.username){
-                        var username = user.username;
-                        usernames.push(username);
-                    }
-                    if (user.email){
-                        var email = user.email;
-                        passwords.push(email);
+                    if (user.username && user.email){
+                        userdata[user.username] = user.email
                     }
                 })
             }catch(error){ alert('Failed to fetch data from the API');}
