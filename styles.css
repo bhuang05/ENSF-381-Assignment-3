@@ -198,3 +198,10 @@ form input {
 .cart{
   text-align: center;
 }
+
+.message-box{
+  border: 2px solid;
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 20px;
+}
